@@ -48,10 +48,10 @@ async function fileExists(filePath: string): Promise<boolean> {
 }
 
 async function main() {
-  console.log('📊 Статус подготовки материалов\n');
+  console.log('Статус подготовки материалов\n');
 
   if (!await fileExists(STATE_FILE)) {
-    console.log('⚪️ Подготовка еще не начиналась');
+    console.log('Подготовка еще не начиналась');
     console.log('\nЗапустите: pnpm generate');
     return;
   }
@@ -60,25 +60,25 @@ async function main() {
   const state: GenerationState = JSON.parse(content);
 
   if (state.completed) {
-    console.log('✅ Подготовка материалов завершена!');
-    console.log(`📁 Данные для Remotion: output/remotion-data.json`);
-    console.log('\n💡 Используй remotion-data.json для создания финального видео');
+    console.log('Подготовка материалов завершена!');
+    console.log(`Данные для Remotion: output/remotion-data.json`);
+    console.log('\nИспользуй remotion-data.json для создания финального видео');
     return;
   }
 
-  console.log('⏳ Подготовка в процессе...\n');
+  console.log('Подготовка в процессе...\n');
 
   if (state.scenario) {
-    console.log(`✅ Сценарий: ${state.scenario.slides.length} слайдов`);
+    console.log(`Сценарий: ${state.scenario.slides.length} слайдов`);
   } else {
-    console.log('⏳ Сценарий: еще не сгенерирован');
+    console.log('Сценарий: еще не сгенерирован');
   }
 
   console.log('\nСлайды:');
   if (state.scenario) {
     for (let i = 0; i < state.scenario.slides.length; i++) {
       const slideState = state.slides.find(s => s.index === i);
-      const status = slideState?.completed ? '✅' : '⏳';
+      const status = slideState?.completed ? '[OK]' : '[...]';
       const slide = state.scenario.slides[i];
       const preview = slide.text_to_tts.substring(0, 40);
       console.log(`  ${status} Слайд ${i + 1}: ${preview}...`);
@@ -89,7 +89,7 @@ async function main() {
     }
   }
 
-  console.log('\n💡 Запустите `pnpm generate` чтобы продолжить');
+  console.log('\nЗапустите `pnpm generate` чтобы продолжить');
 }
 
 main();

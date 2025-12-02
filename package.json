@@ -16,6 +16,7 @@
     "dependencies": {
         "@elevenlabs/elevenlabs-js": "^2.26.0",
         "@google/generative-ai": "^0.21.0",
+        "@travisvn/edge-tts": "^1.0.2",
         "dotenv": "^16.6.1",
         "sharp": "^0.33.5"
     },

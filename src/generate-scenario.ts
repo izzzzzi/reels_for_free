@@ -58,7 +58,7 @@ async function saveState(state: GenerationState): Promise<void> {
 }
 
 async function generateScenario(): Promise<Scenario> {
-  console.log('🎬 Генерация нового сценария через Gemini...');
+  console.log('Генерация нового сценария через Gemini...');
 
   const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
   const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' });
@@ -119,16 +119,16 @@ dramatic close-up portrait of a mysterious figure in shadow, one hand holding a 
   }
 
   const scenario: Scenario = JSON.parse(jsonText);
-  console.log(`✅ Сценарий сгенерирован: ${scenario.slides.length} слайдов`);
+  console.log(`Сценарий сгенерирован: ${scenario.slides.length} слайдов`);
 
   return scenario;
 }
 
 async function main() {
-  console.log('🚀 Генерация сценария...\n');
+  console.log('Генерация сценария...\n');
 
   if (!GEMINI_API_KEY) {
-    console.error('❌ Не указан GEMINI_API_KEY');
+    console.error('Не указан GEMINI_API_KEY');
     console.error('Установите переменную окружения: export GEMINI_API_KEY=your_api_key');
     process.exit(1);
   }
@@ -141,12 +141,12 @@ async function main() {
     const state = await loadState();
 
     if (state.scenario) {
-      console.log('⚠️  Сценарий уже существует!');
-      console.log('📋 Текущий сценарий:');
+      console.log('Сценарий уже существует!');
+      console.log('Текущий сценарий:');
       state.scenario.slides.forEach((slide, i) => {
         console.log(`  ${i + 1}. [${slide.type}] ${slide.text_to_tts.substring(0, 60)}...`);
       });
-      console.log('\n💡 Чтобы сгенерировать новый сценарий, удалите файл: output/state.json');
+      console.log('\nЧтобы сгенерировать новый сценарий, удалите файл: output/state.json');
       console.log('   Или запустите: pnpm clean');
       return;
     }
@@ -163,18 +163,18 @@ async function main() {
     const scenarioPath = path.join(OUTPUT_DIR, 'scenario.json');
     await fs.writeFile(scenarioPath, JSON.stringify(scenario, null, 2));
 
-    console.log('\n🎉 Сценарий сохранен!');
-    console.log(`📁 Файлы:`);
+    console.log('\nСценарий сохранен!');
+    console.log(`Файлы:`);
     console.log(`   - output/scenario.json (для просмотра)`);
     console.log(`   - output/state.json (рабочее состояние)`);
-    console.log('\n📋 Содержание:');
+    console.log('\nСодержание:');
     scenario.slides.forEach((slide, i) => {
       console.log(`  ${i + 1}. [${slide.type}] ${slide.text_to_tts}`);
     });
-    console.log('\n💡 Следующий шаг: pnpm generate-images');
+    console.log('\nСледующий шаг: pnpm generate-images');
 
   } catch (error) {
-    console.error('\n❌ Ошибка:', error);
+    console.error('\nОшибка:', error);
     process.exit(1);
   }
 }

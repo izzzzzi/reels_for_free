@@ -94,21 +94,21 @@ async function saveState(state: GenerationState): Promise<void> {
 }
 
 async function generateImage(prompt: string, outputPath: string): Promise<void> {
-    console.log(`🎨 Генерация изображения...`);
+    console.log(`Генерация изображения...`);
 
     const cmd = `${SD_Z_COMMAND} -p "${prompt}" -o "${outputPath}"`;
 
     try {
         await execAsync(cmd);
-        console.log(`✅ Изображение сгенерировано: ${outputPath}`);
+        console.log(`Изображение сгенерировано: ${outputPath}`);
     } catch (error) {
-        console.error(`❌ Ошибка генерации изображения:`, error);
+        console.error(`Ошибка генерации изображения:`, error);
         throw error;
     }
 }
 
 async function separateBackgroundAndObject(imagePath: string, outputDir: string): Promise<{ object: string; background: string }> {
-    console.log(`🔪 Отделение фона от объекта...`);
+    console.log(`Отделение фона от объекта...`);
 
     const objectDestDir = path.join(outputDir, 'object_output');
     const backgroundDestDir = path.join(outputDir, 'background_output');
@@ -116,7 +116,7 @@ async function separateBackgroundAndObject(imagePath: string, outputDir: string)
     await execAsync(`transparent-background --source "${imagePath}" --dest "${objectDestDir}"`);
     await execAsync(`transparent-background --source "${imagePath}" --reverse --threshold=0.1 --dest "${backgroundDestDir}"`);
 
-    console.log(`✅ Разделение завершено`);
+    console.log(`Разделение завершено`);
 
     const objectPath = path.join(objectDestDir, 'original_rgba.png');
     const backgroundPath = path.join(backgroundDestDir, 'original_rgba_reverse.png');
@@ -125,7 +125,7 @@ async function separateBackgroundAndObject(imagePath: string, outputDir: string)
 }
 
 async function findObjectCenter(imagePath: string): Promise<{ x: number; y: number; width: number; height: number }> {
-    console.log(`📍 Поиск центра объекта...`);
+    console.log(`Поиск центра объекта...`);
 
     const image = sharp(imagePath);
     const { data, info } = await image.raw().toBuffer({ resolveWithObject: true });
@@ -158,7 +158,7 @@ async function findObjectCenter(imagePath: string): Promise<{ x: number; y: numb
     const centerX = (minX + maxX) / 2;
     const centerY = (minY + maxY) / 2;
 
-    console.log(`✅ Центр найден: x=${centerX.toFixed(0)}, y=${centerY.toFixed(0)}`);
+    console.log(`Центр найден: x=${centerX.toFixed(0)}, y=${centerY.toFixed(0)}`);
 
     return { x: centerX, y: centerY, width: info.width, height: info.height };
 }
@@ -171,19 +171,19 @@ async function processSlide(
 ): Promise<SlideMetadata> {
     const slideState = state.slides.find(s => s.index === index);
     if (slideState?.completed) {
-        console.log(`\n⏭️  Слайд ${index + 1} уже обработан, пропускаем`);
+        console.log(`\nСлайд ${index + 1} уже обработан, пропускаем`);
         return slideState;
     }
 
-    console.log(`\n🎬 Обработка слайда ${index + 1}...`);
-    console.log(`📝 Текст: ${slide.text_to_tts.substring(0, 50)}...`);
+    console.log(`\nОбработка слайда ${index + 1}...`);
+    console.log(`Текст: ${slide.text_to_tts.substring(0, 50)}...`);
 
     const imagePath = path.join(slideDir, 'original.png');
 
     if (!await fileExists(imagePath)) {
         await generateImage(slide.z_image_prompt, imagePath);
     } else {
-        console.log('⏭️  Изображение уже существует');
+        console.log('Изображение уже существует');
     }
 
     const objectPath = path.join(slideDir, 'object_output', 'original_rgba.png');
@@ -195,14 +195,14 @@ async function processSlide(
         object = result.object;
         background = result.background;
     } else {
-        console.log('⏭️  Разделение на фон и объект уже выполнено');
+        console.log('Разделение на фон и объект уже выполнено');
         object = objectPath;
         background = backgroundPath;
     }
 
     const centerData = await findObjectCenter(object);
 
-    console.log(`✅ Слайд ${index + 1} готов`);
+    console.log(`Слайд ${index + 1} готов`);
 
     const metadata: SlideMetadata = {
         index,
@@ -236,7 +236,7 @@ async function processSlide(
 }
 
 async function main() {
-    console.log('🚀 Генерация изображений...\n');
+    console.log('Генерация изображений...\n');
 
     await ensureDir(OUTPUT_DIR);
     await ensureDir(TEMP_DIR);
@@ -245,14 +245,14 @@ async function main() {
         const state = await loadState();
 
         if (!state.scenario) {
-            console.error('❌ Сценарий не найден!');
+            console.error('Сценарий не найден!');
             console.error('Сначала запустите: pnpm generate-scenario');
             process.exit(1);
         }
 
         if (state.completed) {
-            console.log('✅ Изображения уже сгенерированы!');
-            console.log(`📁 Данные для Remotion: ${REMOTION_DATA_FILE}`);
+            console.log('Изображения уже сгенерированы!');
+            console.log(`Данные для Remotion: ${REMOTION_DATA_FILE}`);
             return;
         }
 
@@ -280,12 +280,12 @@ async function main() {
         state.completed = true;
         await saveState(state);
 
-        console.log('\n🎉 Изображения сгенерированы!');
-        console.log(`📁 Данные для Remotion: ${REMOTION_DATA_FILE}`);
-        console.log(`\n💡 Следующий шаг: pnpm generate-speech`);
+        console.log('\nИзображения сгенерированы!');
+        console.log(`Данные для Remotion: ${REMOTION_DATA_FILE}`);
+        console.log(`\nСледующий шаг: pnpm generate-speech`);
 
     } catch (error) {
-        console.error('\n❌ Ошибка:', error);
+        console.error('\nОшибка:', error);
         process.exit(1);
     }
 }

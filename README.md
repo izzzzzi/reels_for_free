@@ -28,11 +28,11 @@ git clone --recursive https://github.com/leejet/stable-diffusion.cpp
 cd stable-diffusion.cpp
 mkdir build && cd build
 
-# Для Mac с Apple Silicon (M1/M2/M3):
+# Для Mac с GPU (Apple Silicon M1/M2/M3/M4 или AMD):
 cmake .. -DSD_METAL=ON
 cmake --build . --config Release
 
-# Для Mac с Intel:
+# Для Mac с Intel без дискретной GPU:
 cmake ..
 cmake --build . --config Release
 
@@ -175,7 +175,7 @@ GEMINI_API_KEY=ваш_ключ_gemini
 ELEVENLABS_API_KEY=ваш_ключ_elevenlabs
 
 # Путь к моделям SD-Z
-SD_Z_COMMAND=sd --diffusion-model /путь/к/моделям/z_image_turbo-Q4_1.gguf --vae /путь/к/моделям/ae-f16.gguf --llm /путь/к/моделям/qwen_3_4b.safetensors --cfg-scale 1 --clip-on-cpu --diffusion-fa -H 640 -W 480 --steps 8 --lora-model-dir /путь/к/моделям/
+SD_Z_COMMAND=sd-z --diffusion-model /путь/к/моделям/z_image_turbo-Q4_1.gguf --vae /путь/к/моделям/ae-f16.gguf --llm /путь/к/моделям/qwen_3_4b.safetensors --cfg-scale 1 --clip-on-cpu --diffusion-fa -H 640 -W 480 --steps 8 --lora-model-dir /путь/к/моделям/
 ```
 
 4. **Добавьте фоновую музыку:**

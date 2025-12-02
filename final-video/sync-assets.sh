@@ -6,5 +6,5 @@
 cp -r ../temp public/
 cp -r ../output/* public/
 
-echo "✅ Ресурсы синхронизированы в public/"
+echo "Ресурсы синхронизированы в public/"
 

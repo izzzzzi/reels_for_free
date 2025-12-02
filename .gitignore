@@ -54,3 +54,4 @@ Thumbs.db
 .cache
 
 final-video/public/
+captions/public/video/

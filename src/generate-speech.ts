@@ -2,6 +2,7 @@
 
 import 'dotenv/config';
 import { ElevenLabsClient } from '@elevenlabs/elevenlabs-js';
+import { EdgeTTS } from '@travisvn/edge-tts';
 import fs from 'fs/promises';
 import path from 'path';
 import { exec } from 'child_process';
@@ -9,6 +10,10 @@ import { promisify } from 'util';
 import { Readable } from 'stream';
 
 const execAsync = promisify(exec);
+
+// TTS Engine config
+const TTS_ENGINE = process.env.TTS_ENGINE || 'edge'; // 'edge' | 'elevenlabs'
+const TTS_VOICE = process.env.TTS_VOICE || 'ru-RU-DmitryNeural';
 
 interface Slide {
   type: string;
@@ -87,35 +92,49 @@ async function getAudioDuration(audioPath: string): Promise<number> {
   }
 }
 
-async function generateSpeech(text: string, outputPath: string): Promise<void> {
-  console.log(`🎙️  Генерация озвучки...`);
-  console.log(`📝 Текст: ${text.substring(0, 50)}...`);
-
+async function generateSpeechElevenLabs(text: string, outputPath: string): Promise<void> {
   const client = new ElevenLabsClient({
     apiKey: ELEVENLABS_API_KEY,
   });
 
+  const audio = await client.textToSpeech.convert(VOICE_ID, {
+    text,
+    modelId: 'eleven_turbo_v2_5', // Быстрая модель с поддержкой русского
+    voiceSettings: {
+      stability: 0.4, // Пониженная стабильность для более динамичной речи
+      similarityBoost: 0.8, // Высокое сходство с голосом
+      style: 0.7, // Повышенная экспрессивность для рилсов
+      useSpeakerBoost: true, // Улучшение качества голоса
+    },
+  });
+
+  // Сохраняем аудио
+  const chunks: Uint8Array[] = [];
+  for await (const chunk of audio) {
+    chunks.push(chunk);
+  }
+  const audioBuffer = Buffer.concat(chunks.map(c => Buffer.from(c)));
+  await fs.writeFile(outputPath, audioBuffer);
+}
+
+async function generateSpeechEdge(text: string, outputPath: string): Promise<void> {
+  const tts = new EdgeTTS(text, TTS_VOICE);
+  const result = await tts.synthesize();
+  const audioBuffer = Buffer.from(await result.audio.arrayBuffer());
+  await fs.writeFile(outputPath, audioBuffer);
+}
+
+async function generateSpeech(text: string, outputPath: string): Promise<void> {
+  console.log(`Генерация озвучки (${TTS_ENGINE})...`);
+  console.log(`Текст: ${text.substring(0, 50)}...`);
+
   try {
-    const audio = await client.textToSpeech.convert(VOICE_ID, {
-      text,
-      modelId: 'eleven_turbo_v2_5', // Быстрая модель с поддержкой русского
-      voiceSettings: {
-        stability: 0.4, // Пониженная стабильность для более динамичной речи
-        similarityBoost: 0.8, // Высокое сходство с голосом
-        style: 0.7, // Повышенная экспрессивность для рилсов
-        useSpeakerBoost: true, // Улучшение качества голоса
-      },
-    });
-
-    // Сохраняем аудио
-    const chunks: Uint8Array[] = [];
-    for await (const chunk of audio) {
-      chunks.push(chunk);
+    if (TTS_ENGINE === 'elevenlabs') {
+      await generateSpeechElevenLabs(text, outputPath);
+    } else {
+      await generateSpeechEdge(text, outputPath);
     }
-    const audioBuffer = Buffer.concat(chunks.map(c => Buffer.from(c)));
-    await fs.writeFile(outputPath, audioBuffer);
-
-    console.log(`✅ Аудио сохранено: ${outputPath}`);
+    console.log(`Аудио сохранено: ${outputPath}`);
   } catch (error) {
     console.error('Ошибка генерации речи:', error);
     throw error;
@@ -123,11 +142,13 @@ async function generateSpeech(text: string, outputPath: string): Promise<void> {
 }
 
 async function main() {
-  console.log('🎙️  Запуск генерации озвучки...\n');
+  console.log('Запуск генерации озвучки...\n');
+  console.log(`Движок: ${TTS_ENGINE}, голос: ${TTS_ENGINE === 'edge' ? TTS_VOICE : VOICE_ID}\n`);
 
-  if (!ELEVENLABS_API_KEY) {
-    console.error('❌ Не указан ELEVENLABS_API_KEY');
+  if (TTS_ENGINE === 'elevenlabs' && !ELEVENLABS_API_KEY) {
+    console.error('Не указан ELEVENLABS_API_KEY');
     console.error('Установите переменную окружения: export ELEVENLABS_API_KEY=your_api_key');
+    console.error('Или используйте edge-tts: export TTS_ENGINE=edge');
     process.exit(1);
   }
 
@@ -136,7 +157,7 @@ async function main() {
 
   // Проверяем наличие state.json
   if (!await fileExists(STATE_FILE)) {
-    console.error('❌ Файл state.json не найден');
+    console.error('Файл state.json не найден');
     console.error('Сначала запустите: pnpm generate');
     process.exit(1);
   }
@@ -146,7 +167,7 @@ async function main() {
   const state = JSON.parse(stateContent);
 
   if (!state.scenario) {
-    console.error('❌ Сценарий не найден в state.json');
+    console.error('Сценарий не найден в state.json');
     console.error('Сначала запустите: pnpm generate');
     process.exit(1);
   }
@@ -160,18 +181,18 @@ async function main() {
     const slideData = state.slides[i];
 
     if (!slideData) {
-      console.error(`❌ Данные слайда ${i} не найдены`);
+      console.error(`Данные слайда ${i} не найдены`);
       continue;
     }
 
-    console.log(`\n🎬 Обработка слайда ${i + 1}/${scenario.slides.length}`);
+    console.log(`\nОбработка слайда ${i + 1}/${scenario.slides.length}`);
 
     const audioPath = path.join(AUDIO_DIR, `slide_${i}.mp3`);
     const relativeAudioPath = path.relative(OUTPUT_DIR, audioPath);
 
     // Проверяем, есть ли уже аудио
     if (await fileExists(audioPath)) {
-      console.log('⏭️  Аудио уже существует');
+      console.log('Аудио уже существует');
     } else {
       // Генерируем озвучку
       await generateSpeech(slide.text_to_tts, audioPath);
@@ -179,7 +200,7 @@ async function main() {
 
     // Получаем длительность аудио
     const duration = await getAudioDuration(audioPath);
-    console.log(`⏱️  Длительность: ${duration.toFixed(2)} сек`);
+    console.log(`Длительность: ${duration.toFixed(2)} сек`);
 
     // Обновляем метаданные слайда
     updatedSlides.push({
@@ -202,10 +223,10 @@ async function main() {
 
   await fs.writeFile(REMOTION_DATA_FILE, JSON.stringify(remotionData, null, 2));
 
-  console.log('\n🎉 Генерация озвучки завершена!');
-  console.log(`📊 Общая длительность: ${totalDuration.toFixed(2)} сек`);
-  console.log(`📁 Данные сохранены в: ${REMOTION_DATA_FILE}`);
-  console.log('\n💡 Теперь используй эти данные в Remotion');
+  console.log('\nГенерация озвучки завершена!');
+  console.log(`Общая длительность: ${totalDuration.toFixed(2)} сек`);
+  console.log(`Данные сохранены в: ${REMOTION_DATA_FILE}`);
+  console.log('\nТеперь используй эти данные в Remotion');
   console.log('   cd final-video && pnpm sync && pnpm dev');
 }
 
