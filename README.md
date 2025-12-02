@@ -1,15 +1,15 @@
-# 🎬 Генератор вирусных рилсов
+# Генератор вирусных рилсов
 
 Автоматическая генерация вирусных рилсов с AI-озвучкой, параллакс анимацией и субтитрами.
 
-## 📋 Требования
+## Требования
 
-- Node.js 18+
-- Python 3.8+
+- Node.js 22+
+- Python 3.12+
 - FFmpeg
 - CUDA (опционально, для ускорения генерации изображений)
 
-## 🔧 Установка
+## Установка
 
 ### macOS
 
@@ -18,7 +18,7 @@
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 # 2. Установка зависимостей
-brew install node pnpm python@3.11 ffmpeg cmake
+brew install node pnpm python@3.12 ffmpeg cmake
 
 # 3. Установка Python зависимостей
 pip3 install transparent-background
@@ -134,18 +134,38 @@ copy .env.example .env
 # Отредактируйте .env в любом текстовом редакторе
 ```
 
-## ⚙️ Настройка
+## Настройка
 
 1. **Получите API ключи:**
    - Gemini API: https://makersuite.google.com/app/apikey
    - ElevenLabs API: https://elevenlabs.io/api
 
-2. **Скачайте модели для stable-diffusion:**
-   - Создайте директорию: `/Users/admin/projects/ai/zimage/` (или другую)
-   - Скачайте модели:
-     - `z_image_turbo-Q4_1.gguf`
-     - `ae-f16.gguf`
-     - `qwen_3_4b.safetensors`
+2. **Скачайте модели для stable-diffusion с помощью hf CLI:**
+
+   ```bash
+   # Установка hf CLI (macOS/Linux)
+   curl -LsSf https://hf.co/cli/install.sh | bash
+
+   # Или через pip
+   pip3 install -U huggingface_hub
+
+   # Создайте директорию для моделей
+   mkdir -p ~/models/sd-z
+
+   # Скачивание моделей
+   hf download vantagewithai/Z-Image-Turbo-GGUF z_image_turbo-Q4_1.gguf --local-dir ~/models/sd-z
+   hf download Comfy-Org/z_image_turbo split_files/text_encoders/qwen_3_4b.safetensors --local-dir ~/models/sd-z
+   hf download second-state/FLUX.1-dev-GGUF ae.safetensors --local-dir ~/models/sd-z
+
+   # Переименование/перемещение файлов
+   mv ~/models/sd-z/split_files/text_encoders/qwen_3_4b.safetensors ~/models/sd-z/
+   mv ~/models/sd-z/ae.safetensors ~/models/sd-z/ae-f16.gguf
+   ```
+
+   Модели:
+   - `z_image_turbo-Q4_1.gguf` - основная модель диффузии (Z-Image Turbo)
+   - `ae-f16.gguf` - VAE модель (FLUX.1)
+   - `qwen_3_4b.safetensors` - текстовый энкодер (Qwen 3 4B)
 
 3. **Отредактируйте `.env`:**
 
@@ -161,7 +181,7 @@ SD_Z_COMMAND=sd --diffusion-model /путь/к/моделям/z_image_turbo-Q4_1
 4. **Добавьте фоновую музыку:**
    - Положите файл `music.mp3` в корень проекта
 
-## 🚀 Использование
+## Использование
 
 ### Полный пайплайн (одна команда):
 
@@ -209,15 +229,15 @@ pnpm status
 pnpm clean
 ```
 
-## 📁 Результаты
+## Результаты
 
 - `output/scenario.json` - сгенерированный сценарий
 - `output/audio/` - аудио файлы озвучки
 - `final-video/output/final-reel.mp4` - видео без субтитров
 - `captions/output/final-with-subs.mp4` - видео с субтитрами
-- `output/final/final-reel.mp4` - **финальное видео с музыкой** 🎉
+- `output/final/final-reel.mp4` - **финальное видео с музыкой**
 
-## 🎨 Настройка генерации
+## Настройка генерации
 
 Отредактируйте `src/generate-scenario.ts` для изменения промпта сценария.
 
@@ -225,11 +245,11 @@ pnpm clean
 - Размер изображений: `-H` (высота) и `-W` (ширина)
 - Качество: `--steps` (больше = лучше, но медленнее)
 
-## 📝 Лицензия
+## Лицензия
 
 MIT
 
-## 🙏 Благодарности
+## Благодарности
 
 - [stable-diffusion.cpp](https://github.com/leejet/stable-diffusion.cpp)
 - [transparent-background](https://github.com/plemeri/transparent-background)

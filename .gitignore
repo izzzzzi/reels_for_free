@@ -18,6 +18,9 @@ final-video/output
 .env
 .env.local
 
+# Models
+models/
+
 # Media files
 *.mp4
 *.wav
