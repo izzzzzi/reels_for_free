@@ -22,6 +22,7 @@ interface GenerationState {
 }
 
 const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const SCENARIO_THEME = process.env.SCENARIO_THEME || 'SCP в постсоветской тематике с аналоговым хоррором';
 const OUTPUT_DIR = './output';
 const STATE_FILE = path.join(OUTPUT_DIR, 'state.json');
 
@@ -65,9 +66,7 @@ async function generateScenario(): Promise<Scenario> {
 
   const prompt = `сделай сценарий для вирусного рилса
 
-  тема: SCP в постсоветской тематике, используй этот вайб в промптах и добавь аналогового хоррора
-  SCP-512-RU - "Заводская Гуща": Заброшенный цех, где бетонный пол постоянно "просачивается" нефтью, которая, как выясняется, является сгущенной тенью.
-
+  тема: ${SCENARIO_THEME}
 
 надо на 25 секунд и на 5 слайдов (по 5 секунд на слайд)
 
@@ -125,7 +124,8 @@ dramatic close-up portrait of a mysterious figure in shadow, one hand holding a 
 }
 
 async function main() {
-  console.log('Генерация сценария...\n');
+  console.log('Генерация сценария...');
+  console.log(`Тема: ${SCENARIO_THEME}\n`);
 
   if (!GEMINI_API_KEY) {
     console.error('Не указан GEMINI_API_KEY');
