@@ -3,14 +3,14 @@
     {
       "index": 0,
       "type": "hook",
-      "text_to_tts": "Что, если твой дом – это не просто стены? Что, если он помнит все, но постоянно забывает и переписывает?",
-      "z_image_prompt": "cinematic photograph of a solitary, dusty, chipped enamel teapot, centered on an old gas stove in a dimly lit, rundown Soviet-era kitchen. The teapot has subtle, ghostly, translucent outlines of previous positions faintly visible around it, hinting at constant movement. The focus is solely on the teapot, clearly separated from the background. Superimposed at the TOP of the image in a bold, glitched, slightly distressed font: 'ИСТОРИЯ ПЕРЕЗАПИСАНА' -- moody, atmospheric, dark, analog horror, post-soviet aesthetic",
+      "text_to_tts": "Вы когда-нибудь видели, чтобы бетонный пол ТАК себя вел? Это не просто нефть.",
+      "z_image_prompt": "cinematic photograph of an old, rusted metal bucket, centered, sitting on a cracked concrete floor in a dimly lit, abandoned Soviet-era factory. The bucket is partially filled with an unnaturally thick, dark, viscous liquid that reflects no light. The background is a blurred expanse of decaying industrial machinery. Clear separation between subject and background. Superimposed at the TOP of the image in a bold, glitched font: 'ЧТО ЗДЕСЬ ПРОИСХОДИТ?' -- moody, atmospheric, dark, post-soviet, analog horror, cinematic",
       "original_image": "../temp/slide_0/original.png",
       "object_image": "../temp/slide_0/object_output/original_rgba.png",
       "background_image": "../temp/slide_0/background_output/original_rgba_reverse.png",
       "pivot": {
-        "x": 202,
-        "y": 374.5
+        "x": 242,
+        "y": 455
       },
       "dimensions": {
         "width": 480,
@@ -20,15 +20,15 @@
     },
     {
       "index": 1,
-      "type": "slide",
-      "text_to_tts": "В Квартире-Архиве каждый предмет – живет своей жизнью. Твоя любимая кружка... она никогда не будет на одном месте больше часа.",
-      "z_image_prompt": "dramatic photograph of a single, worn, post-Soviet era slipper, centered, inexplicably hanging perfectly still in mid-air from a stained, concrete ceiling in a sparse, decaying apartment room. The slipper is the clear focal point, well-defined against the softly blurred, grunge texture of the ceiling and wall. -- enigmatic, cinematic, atmospheric, analog horror, post-soviet.",
+      "type": "content",
+      "text_to_tts": "На старом заводе, где десятилетиями стояла тишина, пол начал 'потеть'. Сначала казалось, обычные подтеки.",
+      "z_image_prompt": "dramatic close-up shot of a single, old, worn work boot, centered, standing on a cracked concrete floor. A small, dark, oily puddle is slowly seeping from a crack directly beneath the boot. The boot is the clear focal point, well-defined against a softly blurred background of industrial rubble. -- post-soviet, analog horror, gritty, atmospheric, cinematic",
       "original_image": "../temp/slide_1/original.png",
       "object_image": "../temp/slide_1/object_output/original_rgba.png",
       "background_image": "../temp/slide_1/background_output/original_rgba_reverse.png",
       "pivot": {
-        "x": 235,
-        "y": 369
+        "x": 242,
+        "y": 304.5
       },
       "dimensions": {
         "width": 480,
@@ -38,15 +38,15 @@
     },
     {
       "index": 2,
-      "type": "slide",
-      "text_to_tts": "Не только предметы. Кажется, меняется и сама память. Фотографии на стене... кто этот человек?",
-      "z_image_prompt": "cinematic close-up of a solitary, vintage framed family photograph, centered on a peeling, discolored wallpapered wall. Within the photo, a person's face is subtly distorted with analog glitched lines, or a figure is faintly superimposed and partially transparent. The photograph itself is the dominant object, sharply in focus, contrasting with the blurred, textured background of the old wall. -- eerie, unsettling, analog horror, post-soviet.",
+      "type": "content",
+      "text_to_tts": "Но эта 'нефть' оказалась чем-то гораздо хуже. Она не пахнет, не горит, и кажется... живой.",
+      "z_image_prompt": "overhead shot of a spreading, ink-black, viscous liquid anomaly on a grey concrete floor, centered. The liquid forms an organic, vein-like pattern, slowly growing. The concrete floor is the background, distinct from the dark liquid. -- abstract, analog horror, unsettling, dark, textured, high contrast",
       "original_image": "../temp/slide_2/original.png",
       "object_image": "../temp/slide_2/object_output/original_rgba.png",
       "background_image": "../temp/slide_2/background_output/original_rgba_reverse.png",
       "pivot": {
-        "x": 240,
-        "y": 313.5
+        "x": 252,
+        "y": 333.5
       },
       "dimensions": {
         "width": 480,
@@ -56,15 +56,15 @@
     },
     {
       "index": 3,
-      "type": "slide",
-      "text_to_tts": "Постоянное ощущение, что стены дышат, а мебель следит. Каждый час – новая версия реальности.",
-      "z_image_prompt": "atmospheric shot of a solitary, worn, floral-patterned armchair, centered in a dimly lit, cluttered corner of a post-Soviet apartment. The armchair casts an unnaturally long and distorted shadow that seems to subtly ripple on the wall. The armchair is clearly the main object, sharply defined against a softly blurred background of dusty books and old wallpaper. -- dark, eerie, analog horror, unsettling, post-soviet.",
+      "type": "content",
+      "text_to_tts": "Это сгущенная тень. Тень, которая вытекает из самой земли, проникая в пустоты и заполняя их ужасом.",
+      "z_image_prompt": "cinematic shot of a lone, old, flickering fluorescent light tube, centered, hanging precariously from wires in a dark factory setting. Beneath it, a puddle of the black, oily substance unnaturally reflects warped and elongated shadows, not of the light itself, but of unseen figures. The light tube is the primary object, clearly separated from the dark, industrial background. -- analog horror, eerie, surreal, distorted shadows, post-soviet, unsettling",
       "original_image": "../temp/slide_3/original.png",
       "object_image": "../temp/slide_3/object_output/original_rgba.png",
       "background_image": "../temp/slide_3/background_output/original_rgba_reverse.png",
       "pivot": {
-        "x": 233,
-        "y": 443
+        "x": 235.5,
+        "y": 186
       },
       "dimensions": {
         "width": 480,
@@ -74,15 +74,15 @@
     },
     {
       "index": 4,
-      "type": "slide",
-      "text_to_tts": "Иногда ты просыпаешься... и не можешь понять, это твой дом, или чья-то чужая, постоянно переписываемая история?",
-      "z_image_prompt": "eerie cinematic shot of a solitary, faded, geometric patterned Soviet-era carpet (kovyor), centered on a wooden floor in an empty, dimly lit room. The carpet appears perfectly normal, but there are multiple faint, almost imperceptible ghosted outlines of identical carpets faintly visible around it on the floor, suggesting past positions. The carpet is the clear, distinct main object, set against a simple, softly blurred wooden floor and featureless wall. -- mysterious, atmospheric, analog horror, post-soviet.",
+      "type": "content",
+      "text_to_tts": "Что, если эта тень не просто лежит на полу? Что, если она ищет что-то... или кого-то?",
+      "z_image_prompt": "dramatic wide shot of a vast, abandoned factory hall, centered, completely consumed by a thick, oppressive black sludge covering the entire floor. A single, ominous, distorted silhouette of a figure is partially visible within the depths of the sludge, reaching out. The sludge and silhouette are the main focus, clearly defined against the decaying, dark industrial architecture of the factory in the background. -- analog horror, existential dread, overwhelming, dark, post-soviet, cinematic, terrifying",
       "original_image": "../temp/slide_4/original.png",
       "object_image": "../temp/slide_4/object_output/original_rgba.png",
       "background_image": "../temp/slide_4/background_output/original_rgba_reverse.png",
       "pivot": {
-        "x": 235.5,
-        "y": 395
+        "x": 237,
+        "y": 318
       },
       "dimensions": {
         "width": 480,
@@ -96,28 +96,28 @@
     "slides": [
       {
         "type": "hook",
-        "text_to_tts": "Что, если твой дом – это не просто стены? Что, если он помнит все, но постоянно забывает и переписывает?",
-        "z_image_prompt": "cinematic photograph of a solitary, dusty, chipped enamel teapot, centered on an old gas stove in a dimly lit, rundown Soviet-era kitchen. The teapot has subtle, ghostly, translucent outlines of previous positions faintly visible around it, hinting at constant movement. The focus is solely on the teapot, clearly separated from the background. Superimposed at the TOP of the image in a bold, glitched, slightly distressed font: 'ИСТОРИЯ ПЕРЕЗАПИСАНА' -- moody, atmospheric, dark, analog horror, post-soviet aesthetic"
+        "text_to_tts": "Вы когда-нибудь видели, чтобы бетонный пол ТАК себя вел? Это не просто нефть.",
+        "z_image_prompt": "cinematic photograph of an old, rusted metal bucket, centered, sitting on a cracked concrete floor in a dimly lit, abandoned Soviet-era factory. The bucket is partially filled with an unnaturally thick, dark, viscous liquid that reflects no light. The background is a blurred expanse of decaying industrial machinery. Clear separation between subject and background. Superimposed at the TOP of the image in a bold, glitched font: 'ЧТО ЗДЕСЬ ПРОИСХОДИТ?' -- moody, atmospheric, dark, post-soviet, analog horror, cinematic"
       },
       {
-        "type": "slide",
-        "text_to_tts": "В Квартире-Архиве каждый предмет – живет своей жизнью. Твоя любимая кружка... она никогда не будет на одном месте больше часа.",
-        "z_image_prompt": "dramatic photograph of a single, worn, post-Soviet era slipper, centered, inexplicably hanging perfectly still in mid-air from a stained, concrete ceiling in a sparse, decaying apartment room. The slipper is the clear focal point, well-defined against the softly blurred, grunge texture of the ceiling and wall. -- enigmatic, cinematic, atmospheric, analog horror, post-soviet."
+        "type": "content",
+        "text_to_tts": "На старом заводе, где десятилетиями стояла тишина, пол начал 'потеть'. Сначала казалось, обычные подтеки.",
+        "z_image_prompt": "dramatic close-up shot of a single, old, worn work boot, centered, standing on a cracked concrete floor. A small, dark, oily puddle is slowly seeping from a crack directly beneath the boot. The boot is the clear focal point, well-defined against a softly blurred background of industrial rubble. -- post-soviet, analog horror, gritty, atmospheric, cinematic"
       },
       {
-        "type": "slide",
-        "text_to_tts": "Не только предметы. Кажется, меняется и сама память. Фотографии на стене... кто этот человек?",
-        "z_image_prompt": "cinematic close-up of a solitary, vintage framed family photograph, centered on a peeling, discolored wallpapered wall. Within the photo, a person's face is subtly distorted with analog glitched lines, or a figure is faintly superimposed and partially transparent. The photograph itself is the dominant object, sharply in focus, contrasting with the blurred, textured background of the old wall. -- eerie, unsettling, analog horror, post-soviet."
+        "type": "content",
+        "text_to_tts": "Но эта 'нефть' оказалась чем-то гораздо хуже. Она не пахнет, не горит, и кажется... живой.",
+        "z_image_prompt": "overhead shot of a spreading, ink-black, viscous liquid anomaly on a grey concrete floor, centered. The liquid forms an organic, vein-like pattern, slowly growing. The concrete floor is the background, distinct from the dark liquid. -- abstract, analog horror, unsettling, dark, textured, high contrast"
       },
       {
-        "type": "slide",
-        "text_to_tts": "Постоянное ощущение, что стены дышат, а мебель следит. Каждый час – новая версия реальности.",
-        "z_image_prompt": "atmospheric shot of a solitary, worn, floral-patterned armchair, centered in a dimly lit, cluttered corner of a post-Soviet apartment. The armchair casts an unnaturally long and distorted shadow that seems to subtly ripple on the wall. The armchair is clearly the main object, sharply defined against a softly blurred background of dusty books and old wallpaper. -- dark, eerie, analog horror, unsettling, post-soviet."
+        "type": "content",
+        "text_to_tts": "Это сгущенная тень. Тень, которая вытекает из самой земли, проникая в пустоты и заполняя их ужасом.",
+        "z_image_prompt": "cinematic shot of a lone, old, flickering fluorescent light tube, centered, hanging precariously from wires in a dark factory setting. Beneath it, a puddle of the black, oily substance unnaturally reflects warped and elongated shadows, not of the light itself, but of unseen figures. The light tube is the primary object, clearly separated from the dark, industrial background. -- analog horror, eerie, surreal, distorted shadows, post-soviet, unsettling"
       },
       {
-        "type": "slide",
-        "text_to_tts": "Иногда ты просыпаешься... и не можешь понять, это твой дом, или чья-то чужая, постоянно переписываемая история?",
-        "z_image_prompt": "eerie cinematic shot of a solitary, faded, geometric patterned Soviet-era carpet (kovyor), centered on a wooden floor in an empty, dimly lit room. The carpet appears perfectly normal, but there are multiple faint, almost imperceptible ghosted outlines of identical carpets faintly visible around it on the floor, suggesting past positions. The carpet is the clear, distinct main object, set against a simple, softly blurred wooden floor and featureless wall. -- mysterious, atmospheric, analog horror, post-soviet."
+        "type": "content",
+        "text_to_tts": "Что, если эта тень не просто лежит на полу? Что, если она ищет что-то... или кого-то?",
+        "z_image_prompt": "dramatic wide shot of a vast, abandoned factory hall, centered, completely consumed by a thick, oppressive black sludge covering the entire floor. A single, ominous, distorted silhouette of a figure is partially visible within the depths of the sludge, reaching out. The sludge and silhouette are the main focus, clearly defined against the decaying, dark industrial architecture of the factory in the background. -- analog horror, existential dread, overwhelming, dark, post-soviet, cinematic, terrifying"
       }
     ]
   }
